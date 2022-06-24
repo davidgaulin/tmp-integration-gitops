@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/instance: amq-streams
     strimzi.io/cluster: kafka-cluster
   name: ircc-integration-events
-  namespace: ircc-openshift-amq-streams
+  namespace: ircc-integration-amq-streams
 spec:
   config:
     min.insync.replicas: 1
