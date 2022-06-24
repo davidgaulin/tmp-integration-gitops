@@ -1,0 +1,18 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  labels:
+    app.kubernetes.io/instance: amq-streams
+    strimzi.io/cluster: kafka-cluster
+  name: ircc-integration-events
+  namespace: ircc-openshift-amq-streams
+spec:
+  config:
+    min.insync.replicas: 1
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+  partitions: 1
+  replicas: 3
+  topicName: ircc-integration-events
