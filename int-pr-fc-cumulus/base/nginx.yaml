@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: registry.redhat.io/rhel8/mysql-80
+        image: registry.redhat.io/nginx/nginx-ingress-operator
