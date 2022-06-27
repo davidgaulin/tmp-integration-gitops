@@ -6,6 +6,7 @@ metadata:
   labels:
     app: nginx
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -13,8 +14,7 @@ spec:
     metadata:
       labels:
         app: nginx
-  spec:
-    replicas: 1
-    containers:
-    - name: nginx
-      image: registry.redhat.io/rhel8/nginx-118
+    spec:
+      containers:
+      - name: nginx
+        image: registry.redhat.io/rhel8/nginx-118
