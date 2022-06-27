@@ -6,6 +6,13 @@ metadata:
   labels:
     app: nginx
 spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
   replicas: 1
   containers:
   - name: nginx
