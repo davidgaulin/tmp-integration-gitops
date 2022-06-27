@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: redis-deployment
   namespace: int-pr-fc-cumulus
   labels:
-    app: nginx
+    app: redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: redis
   template:
     metadata:
       labels:
-        app: nginx
+        app: redis
     spec:
       containers:
-      - name: nginx
-        image: registry.redhat.io/nginx/nginx-ingress-operator
+      - name: redis
+        image: registry.redhat.io/rhel8/redis-6
