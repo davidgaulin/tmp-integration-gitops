@@ -4,17 +4,17 @@ metadata:
   name: mysql-deployment
   namespace: int-pr-fc-cumulus
   labels:
-    app: mysql
+    app: nginx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql
+      app: nginx
   template:
     metadata:
       labels:
-        app: mysql
+        app: nginx
     spec:
       containers:
-      - name: mysql
+      - name: nginx
         image: registry.redhat.io/nginx/nginx-ingress-operator
