@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-deployment
-  namespace: int-pr-fc-cumulus
+  namespace: ircc-integration-cumulus
   labels:
     app: redis
 spec:
