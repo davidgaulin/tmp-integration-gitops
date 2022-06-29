@@ -152,7 +152,7 @@ spec:
   - name: build-app-image
     params:
     - name: IMAGE
-     value: $(params.APP_IMAGE_URL)/$(params.APP_NAME):$(params.APP_VERSION)
+      value: $(params.APP_IMAGE_URL)/$(params.APP_NAME):$(params.APP_VERSION)
     - name: CONTEXT
       value: $(params.PROJECT_FOLDER)
     - name: DOCKERFILE
