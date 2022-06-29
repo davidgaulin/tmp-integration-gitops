@@ -1,0 +1,177 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ircc-integration-build-and-pipelines
+    meta.helm.sh/release-namespace: ircc-integration-pipeline
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    ircc.gc.ca/team: ircc-integration
+    pipeline.openshift.io/runtime: java
+  name: generic-maven-quick-build-pipeline
+  namespace: ircc-cicd
+  resourceVersion: "824692523"
+  uid: 9c3ff769-2052-45cb-9569-0951288b362e
+spec:
+  description: 'A Tekton Pipline to do the following: - Clone a source repo - Run
+    a Maven build - Run buildah to create a container image and push to the OpenShift
+    Image Registry'
+  params:
+  - default: image-registry.openshift-image-registry.svc:5000/ircc-cicd
+    name: APP_IMAGE_URL
+    type: string
+  - name: PROJECT_FOLDER
+    type: string
+  - name: APP_NAME
+    type: string
+  - default: latest
+    name: APP_VERSION
+    type: string
+  - name: SOURCE_REPO_URL
+    type: string
+  - default: master
+    name: SOURCE_REPO_REVISION
+    type: string
+  - default: https://alm-tfs.apps.ci.gc.ca/tfs/IRCC/GCMS/_git/int-devops
+    name: DOCKERFILE_REPO_URL
+    type: string
+  - default: master
+    name: DOCKERFILE_REPO_REVISION
+    type: string
+  - default: openshift/build/dockerfiles/fuse710
+    name: DOCKERFILE_FOLDER
+    type: string
+  - default: image-registry.openshift-image-registry.svc:5000/ircc-cicd/openjdk-11:latest
+    name: MAVEN_IMAGE
+    type: string
+  - default: "true"
+    name: CREATE_IMAGE
+    type: string
+  tasks:
+  - name: fetch-source
+    params:
+    - name: url
+      value: $(params.SOURCE_REPO_URL)
+    - name: revision
+      value: $(params.SOURCE_REPO_REVISION)
+    - name: deleteExisting
+      value: "true"
+    taskRef:
+      kind: ClusterTask
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: source
+  - name: set-pom-version
+    params:
+    - name: MAVEN_IMAGE
+      value: $(params.MAVEN_IMAGE)
+    - name: GOALS
+      value:
+      - -f
+      - $(params.PROJECT_FOLDER)
+      - -DnewVersion=$(params.APP_VERSION)
+      - versions:set
+    runAfter:
+    - fetch-source
+    taskRef:
+      kind: Task
+      name: maven-custom
+    workspaces:
+    - name: maven-settings
+      workspace: maven-settings
+    - name: source
+      workspace: source
+  - name: test-java-app
+    params:
+    - name: MAVEN_IMAGE
+      value: $(params.MAVEN_IMAGE)
+    - name: GOALS
+      value:
+      - -f
+      - $(params.PROJECT_FOLDER)
+      - -B
+      - clean
+      - test
+      - -Dgroups=ca.gc.ircc.integration.common.testing.category.IsolatedUnitTest
+    runAfter:
+    - set-pom-version
+    taskRef:
+      kind: Task
+      name: maven-custom
+    workspaces:
+    - name: maven-settings
+      workspace: maven-settings
+    - name: source
+      workspace: source
+  - name: build-java-app
+    params:
+    - name: MAVEN_IMAGE
+      value: $(params.MAVEN_IMAGE)
+    - name: GOALS
+      value:
+      - -f
+      - $(params.PROJECT_FOLDER)
+      - -B
+      - -DskipTests
+      - clean
+      - package
+    runAfter:
+    - test-java-app
+    taskRef:
+      kind: Task
+      name: maven-custom
+    workspaces:
+    - name: maven-settings
+      workspace: maven-settings
+    - name: source
+      workspace: source
+  - name: fetch-dockerfile
+    params:
+    - name: url
+      value: $(params.DOCKERFILE_REPO_URL)
+    - name: revision
+      value: $(params.DOCKERFILE_REPO_REVISION)
+    - name: subdirectory
+      value: ircc-devops
+    - name: deleteExisting
+      value: "true"
+    runAfter:
+    - build-java-app
+    taskRef:
+      kind: ClusterTask
+      name: git-clone
+    when:
+    - input: $(params.CREATE_IMAGE)
+      operator: in
+      values:
+      - "true"
+    workspaces:
+    - name: output
+      workspace: source
+  - name: build-app-image
+    params:
+    - name: IMAGE
+     value: $(params.APP_IMAGE_URL)/$(params.APP_NAME):$(params.APP_VERSION)
+    - name: CONTEXT
+      value: $(params.PROJECT_FOLDER)
+    - name: DOCKERFILE
+      value: /workspace/source/ircc-devops/$(params.DOCKERFILE_FOLDER)/Dockerfile
+    - name: TLSVERIFY
+      value: "false"
+    runAfter:
+    - fetch-dockerfile
+    taskRef:
+      kind: ClusterTask
+      name: buildah
+    when:
+    - input: $(params.CREATE_IMAGE)
+      operator: in
+      values:
+      - "true"
+    workspaces:
+    - name: source
+      workspace: source
+  workspaces:
+  - name: source
+  - name: maven-settings
