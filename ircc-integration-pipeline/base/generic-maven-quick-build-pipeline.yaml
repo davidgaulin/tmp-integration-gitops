@@ -9,7 +9,7 @@ metadata:
     ircc.gc.ca/team: ircc-integration
     pipeline.openshift.io/runtime: java
   name: generic-maven-quick-build-pipeline
-  namespace: ircc-cicd
+  namespace: ircc-integration-pipeline
   resourceVersion: "824692523"
   uid: 9c3ff769-2052-45cb-9569-0951288b362e
 spec:
