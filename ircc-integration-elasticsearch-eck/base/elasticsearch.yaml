@@ -1,5 +1,5 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
-kind: ElasticSearch
+kind: Elasticsearch
 metadata:
   name: elasticsearch-instance
   namespace: ircc-integration-elasticsearch-eck
