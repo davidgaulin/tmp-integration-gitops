@@ -5,3 +5,4 @@ resources:
 - nginx.yaml
 - heartbeat-service-account.yaml
 - filebeat-service-account.yaml
+- elasticsearch.yaml

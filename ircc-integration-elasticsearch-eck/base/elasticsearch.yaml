@@ -1,0 +1,57 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: ElasticSearch
+metadata:
+  name: elasticsearch-instance
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  auth: {}
+  http:
+    service:
+      metadata: {}
+      spec: {}
+    tls:
+      certificate: {}
+  monitoring:
+    logs: {}
+    metrics: {}
+  nodeSets:
+  - config:
+      node.attr.attr_name: attr_value
+      node.store.allow_mmap: "false"
+    count: 3
+    name: default
+    podTemplate:
+      metadata:
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "2"
+              memory: 4Gi
+        serviceAccount: elasticsearch-service-account
+        serviceAccountName: elasticsearch-service-account
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Gi
+        storageClassName: gp2
+  transport:
+    service:
+      metadata: {}
+      spec: {}
+    tls: 
+      certificate: {}
+  updateStrategy:
+    changeBudget: {}
+  version: 7.16.0
+  volumeClaimDeletePolicy: DeleteOnScaledownOnly
