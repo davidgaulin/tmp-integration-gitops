@@ -10,8 +10,6 @@ metadata:
     pipeline.openshift.io/runtime: java
   name: generic-maven-quick-build-pipeline
   namespace: ircc-integration-pipeline
-  resourceVersion: "824692523"
-  uid: 9c3ff769-2052-45cb-9569-0951288b362e
 spec:
   description: 'A Tekton Pipline to do the following: - Clone a source repo - Run
     a Maven build - Run buildah to create a container image and push to the OpenShift
