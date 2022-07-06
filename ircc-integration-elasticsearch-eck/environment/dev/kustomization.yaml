@@ -21,7 +21,7 @@ patches:
       value: 'kibana-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'
 - target:
     kind: Route
-    name: elasticsearch-route
+    name: elascticsearch-route
   patch: |-
     - op: replace
       path: /spec/host
