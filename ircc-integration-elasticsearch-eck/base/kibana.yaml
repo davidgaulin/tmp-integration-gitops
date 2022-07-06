@@ -1,0 +1,38 @@
+apiVersion: apm.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: Kibana-instance
+  namespace: ircc-integration-elasticsearch-eck
+spec:
+  config:
+    server.publicBaseUrl: TODO
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-instance
+  enterpriseSearchRef:
+    name: ""
+  http:
+    service:
+      metadata: {}
+      spec: {}
+    tls:
+      certificate: {}
+  monitoring:
+    logs: {}
+    metrics: {}
+  podTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          limits:
+            cpu: "2"
+            memory: 2560Mi
+          requests:
+            cpu: 500m
+            memory: 1Gi
+  version: 7.16.0
+    
+    

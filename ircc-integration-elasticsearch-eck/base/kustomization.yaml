@@ -2,7 +2,18 @@ kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
 resources:
-- nginx.yaml
 - heartbeat-service-account.yaml
 - filebeat-service-account.yaml
 - elasticsearch.yaml
+- kibana.yaml
+- apm-server.yaml
+
+
+patches:
+- target:
+    kind: Kibana
+    name: kibana-instance
+  patch: |-
+    - op: replace
+      path: /spec/config/server.publicBaseUrl
+      value: 'https://kibana-ircc-integration-elasticsearch-eck.apps.opc-hip-apps.awc.ci.gc.ca'

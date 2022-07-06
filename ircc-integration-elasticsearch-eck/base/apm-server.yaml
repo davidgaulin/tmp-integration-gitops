@@ -1,0 +1,25 @@
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: ApmServer-instance
+  namespace: ircc-integration-elasticsearch-eck
+spec:
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-instance
+  http:
+    service:
+      metadata: {}
+      spec: {}
+    tls:
+      certificate: {}
+  kibanaRef:
+    name: kibana-instance
+  podTemplate:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers: null
+  version: 7.16.0
+    
+    
