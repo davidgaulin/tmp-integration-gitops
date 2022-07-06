@@ -1,9 +1,10 @@
 kind: Kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 
-bases:
-- ../../base/
+# TODO Commenting out because fake cluster is out of resources
+# bases:
+# - ../../base/
 
-resources:
-  - amq-broker-route.yaml
+# resources:
+#   - amq-broker-route.yaml
 
