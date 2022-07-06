@@ -5,7 +5,7 @@ metadata:
   namespace: ircc-integration-elasticsearch-eck
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    eck.k8s.elastic.co/orchestration-hints: '{"no_transient_settings":true}'
+    eck.k8s.elastic.co/orchestration-hints: '{"no_transient_settings":true,"service_accounts":false}'
 spec:
   auth: {}
   http:
