@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: elascticsearch-route
+  namespace: ircc-integration-elasticsearch-eck
+spec:
+  host: TODO
+  to:
+    kind: Service
+    name: elasticsearch-instance-es-http
+    weight: 100
+  port:
+    targetPort: https
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

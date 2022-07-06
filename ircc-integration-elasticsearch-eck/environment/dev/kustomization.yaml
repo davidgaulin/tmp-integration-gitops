@@ -11,4 +11,18 @@ patches:
   patch: |-
     - op: replace
       path: /spec/config/server.publicBaseUrl
-      value: 'https://kibana-ircc-integration-elasticsearch-eck.apps.opc-hip-apps.awc.ci.gc.ca'
+      value: 'https://kibana-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'
+- target:
+    kind: Route
+    name: kibana-route
+  patch: |-
+    - op: replace
+      path: /spec/host
+      value: 'kibana-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'
+- target:
+    kind: Route
+    name: elasticsearch-route
+  patch: |-
+    - op: replace
+      path: /spec/host
+      value: 'elasticsearch-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'             

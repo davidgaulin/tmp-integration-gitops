@@ -6,5 +6,7 @@ resources:
 - heartbeat-service-account.yaml
 - filebeat-service-account.yaml
 - elasticsearch.yaml
-- kibana.yaml
+- elasticsearch-route.yaml
 - apm-server.yaml
+- kibana.yaml
+- kibana-route.yaml
