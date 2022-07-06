@@ -12,7 +12,7 @@ resources:
 patches:
 - target:
     kind: Kibana
-    name: kibana-instance
+    name: Kibana-instance
   patch: |-
     - op: replace
       path: /spec/config/server.publicBaseUrl
