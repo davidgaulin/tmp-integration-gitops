@@ -4,3 +4,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 bases:
 - ../../base/
 
+patches:
+- target:
+    kind: Kibana
+    name: Kibana-instance
+  patch: |-
+    - op: replace
+      path: /spec/config/server.publicBaseUrl
+      value: 'https://kibana-ircc-integration-elasticsearch-eck.apps.opc-hip-apps.awc.ci.gc.ca'
