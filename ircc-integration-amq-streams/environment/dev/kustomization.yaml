@@ -12,4 +12,12 @@ patches:
   patch: |-
     - op: replace
       path: /spec/zookeeper/storage/size
-      value: 2gi
+      value: 10gi
+
+- target:
+    kind: Kafka
+    name: kafka-cluster
+  patch: |-
+    - op: replace
+      path: /spec/kafka/storage/size
+      value: 10gi      
