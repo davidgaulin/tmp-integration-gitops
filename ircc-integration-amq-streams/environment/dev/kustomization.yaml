@@ -4,3 +4,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 bases:
 - ../../base/
 
+# TODO mostly for fake cluster - reduce storage size requirements in dev
+patches:
+- target:
+    kind: Kafka
+    name: kafka-cluster
+  patch: |-
+    - op: replace
+      path: /spec/zookeeper/storage/size
+      value: 2gi

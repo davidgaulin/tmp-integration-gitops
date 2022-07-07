@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: amq-streams-cluster-metrics
+  name: ircc-integration-amq-streams-cluster-metrics
   namespace: ircc-integration-amq-streams
   labels:
     app: strimzi

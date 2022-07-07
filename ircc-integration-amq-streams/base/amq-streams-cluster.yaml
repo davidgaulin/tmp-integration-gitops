@@ -3,7 +3,7 @@ kind: Kafka
 metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  name: kafka-cluster
+  name: ircc-integration-kafka-cluster
   namespace: ircc-integration-amq-streams
 spec:
   entityOperator:
@@ -89,6 +89,5 @@ spec:
         cpu: '2'
         memory: 4Gi
     storage:
-      # TODO - Lowered from 100gi to 2gi for fake cluster
-      size: 2Gi
+      size: 100Gi
       type: persistent-claim

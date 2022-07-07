@@ -11,3 +11,4 @@ resources:
 - apm-server.yaml
 - kibana.yaml
 - kibana-route.yaml
+- filebeat.yaml

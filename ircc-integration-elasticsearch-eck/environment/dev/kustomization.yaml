@@ -25,4 +25,14 @@ patches:
   patch: |-
     - op: replace
       path: /spec/host
-      value: 'elasticsearch-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'             
+      value: 'elasticsearch-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com'
+
+# TODO Value for the dev cluster at IRCC in cloud
+# value: https://elasticsearch-ircc-dev.apps.opc-hip-apps.aws.ci.gc.ca:443            
+- target:
+    kind: Beat
+    name: ircc-integreation-filebeat
+  patch: |-
+    - op: replace
+      path: /spec/config/output/elasticsearch/hosts/0
+      value: https://elasticsearch-ircc-integration-elasticsearch-eck.apps.cluster-6lm9v.6lm9v.sandbox968.opentlc.com/   

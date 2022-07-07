@@ -5,7 +5,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     app.kubernetes.io/instance: amq-streams
-    strimzi.io/cluster: kafka-cluster
+    strimzi.io/cluster: ircc-integration-kafka-cluster
   name: ircc-integration-events
   namespace: ircc-integration-amq-streams
 spec:
