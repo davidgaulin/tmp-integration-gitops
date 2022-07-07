@@ -12,7 +12,7 @@ patches:
   patch: |-
     - op: replace
       path: /spec/zookeeper/storage/size
-      value: 10gi
+      value: 10Gi
 
 - target:
     kind: Kafka
@@ -20,4 +20,4 @@ patches:
   patch: |-
     - op: replace
       path: /spec/kafka/storage/size
-      value: 10gi      
+      value: 10Gi      
