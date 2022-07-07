@@ -5,19 +5,19 @@ bases:
 - ../../base/
 
 # TODO mostly for fake cluster - reduce storage size requirements in dev
-patches:
-- target:
-    kind: Kafka
-    name: ircc-integration-kafka-cluster
-  patch: |-
-    - op: replace
-      path: /spec/zookeeper/storage/size
-      value: 10Gi
+# patches:
+# - target:
+#     kind: Kafka
+#     name: ircc-integration-kafka-cluster
+#   patch: |-
+#     - op: replace
+#       path: /spec/zookeeper/storage/size
+#       value: 10Gi
 
-- target:
-    kind: Kafka
-    name: ircc-integration-kafka-cluster
-  patch: |-
-    - op: replace
-      path: /spec/kafka/storage/size
-      value: 10Gi      
+# - target:
+#     kind: Kafka
+#     name: ircc-integration-kafka-cluster
+#   patch: |-
+#     - op: replace
+#       path: /spec/kafka/storage/size
+#       value: 10Gi      
